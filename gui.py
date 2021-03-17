@@ -9,6 +9,9 @@ newActionLabelCurRow = 2
 currentFilePath = ""
 newAction = []
 
+# Switch to the directory that the script is in. This program depends on it.
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
 def runMainWindow():
     # MAIN WINDOW
     root = Tk()
@@ -146,6 +149,7 @@ def runCreateActionWindow():
 def saveAction():
     # IMPLEMENT SAVE FEATURE
     def save():
+        global newActionLabelCurRow
         nameOfMacro = actionEntryField.get()
         macroFile = open("macros/" + nameOfMacro + ".txt", "w")
         for action in newAction:
@@ -156,6 +160,8 @@ def saveAction():
             elif (action[0] == "ourl"):
                 macroFile.write("ourl\n")
                 macroFile.write(action[1] + "\n")
+        newAction.clear()
+        newActionLabelCurRow = 2
         saveActionWindow.destroy()
 
     # SAVE ACTION WINDOW
